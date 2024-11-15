@@ -1,8 +1,8 @@
-# AlphaFold3 training pipeline modified based on Ligo-science implementation on Intel Gaudi2D
+# AlphaFold3 training on Intel Gaudi2D and inference on Intel CPU modified based on Ligo-science implementation
 
 ## project plan
 
-1. complete unit tests and construct AF3 baseline line onto Gaudi2D
+1. complete unit tests and construct AF3 baseline line onto Gaudi2D and CPU
 2. optimize performance of training pipeline on Gaudi2D
 
 ## updates:
@@ -11,7 +11,10 @@
 **setup**
 - requirements.txt
 
-**tests_gaudi**:
+**[Done √] tests_xeon**:
+- test_pariformer.py
+
+**[TODO X] tests_xeon**:
 - conftest.py
 - test_alignment.py
 - test_atom_attention_naive.py
@@ -27,7 +30,32 @@
 - test_eval.py
 - test_loss.py
 - test_msa_module.py
+- test_primitives.py
+- test_relpos.py
+- test_sweeps.py
+- test_train.py
+- test_transition.py
+- test_validation_metrics.py
+
+**[Done √] tests_gaudi**:
 - test_pairformer.py
+
+**[TODO X] tests_gaudi**:
+- conftest.py
+- test_alignment.py
+- test_atom_attention_naive.py
+- test_atom_attention.py
+- test_attention_pair_bias.py
+- test_augmentation.py
+- test_conditioning.py
+- test_configs.py
+- test_datamodules.py
+- test_diffusion_module.py
+- test_diffusion_transformer.py
+- test_embedders.py
+- test_eval.py
+- test_loss.py
+- test_msa_module.py
 - test_primitives.py
 - test_relpos.py
 - test_sweeps.py

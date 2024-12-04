@@ -143,50 +143,6 @@ class TriangleMultiplicativeUpdate(BaseTriangleMultiplicativeUpdate):
                 overwritten with (update).
         Returns:
             A reference to the overwritten z
-
-        More memory-efficient, inference-only version of the forward function.
-        Uses in-place operations, fusion of the addition that happens after
-        this module in the Evoformer, a smidge of recomputation, and 
-        a cache of overwritten values to lower peak memory consumption of this
-        module from 5x the size of the x tensor z to 2.5x its size. Useful
-        for inference on extremely long sequences. 
-        
-        It works as follows. We will make reference to variables used in the
-        default forward implementation below. Naively, triangle multiplication
-        attention requires the manifestation of 5 tensors the size of z:
-        1) z, the "square" x tensor, 2) a, the first projection of z,
-        3) b, the second projection of b, 4) g, a z-sized mask, and 5) a 
-        z-sized tensor for intermediate computations. For large N, this is 
-        prohibitively expensive; for N=4000, for example, z is more than 8GB 
-        alone. To avoid this problem, we compute b, g, and all intermediate
-        tensors in small chunks, noting that the chunks required to compute a
-        chunk of the output depend only on the tensor a and corresponding 
-        vertical and horizontal chunks of z. This suggests an algorithm that 
-        loops over pairs of chunks of z: hereafter "columns" and "rows" of
-        z, even though each "column" and "row" in fact contains
-        inplace_chunk_size contiguous true columns and rows of z. Writing 
-        output chunks to a new tensor would bring total memory consumption
-        down to 3x the size of z. However, more memory can be saved by writing
-        output chunks directly to z in-place. WLOG, we choose to write output
-        chunks vertically, overwriting the ith "column" of z at the end of
-        the ith iteration of the main loop. Despite this overwriting, the 
-        ith column is always one column ahead of previously overwritten columns 
-        and can be recovered directly from z. After the first iteration,
-        however, the ith row of z is always at least partially overwritten. For
-        this reason, we introduce the z-cache, a tensor one-half the size of 
-        z. The z-cache initially contains the left half (2nd and 3rd quadrants)
-        of z. For 0 < i < N/2, the missing left part of the ith row of z is
-        recovered from this cache at the beginning of the ith iteration. Once i 
-        exceeds n/2, the cache is "reoriented" to encompass the 3rd and 4th 
-        quadrants of z instead. Though the 3rd quadrant of the original z is 
-        entirely overwritten at this point, it can be recovered from the z-cache 
-        itself. Thereafter, the ith row of z can be recovered in its entirety 
-        from the reoriented z-cache. After the final iteration, z has been 
-        completely overwritten and contains the triangular multiplicative 
-        update. If with_add is True, it instead contains the sum of z and the
-        triangular multiplicative update. In either case, peak memory 
-        consumption is just 2.5x the size of z, disregarding memory used for 
-        chunks and other small variables.
         """
         if mask is None:
             mask = z.new_ones(z.shape[:-1])

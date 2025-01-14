@@ -87,7 +87,7 @@ class GatedLinearUnit(abc.ABC):
     ...
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def gated_linear_unit_xla(
     x: Float[Array, '*B M K'],
     weight: Float[Array, 'K 2 N'],

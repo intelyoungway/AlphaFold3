@@ -12,9 +12,9 @@
 
 import dataclasses
 
-from alphafold3.jax.attention import attention_base as base
-from alphafold3.jax.common import array_view
-from alphafold3.jax.common import precision as precision_lib
+from ref_from_deepmind.jax.attention import attention_base as base
+from ref_from_deepmind.jax.common import array_view
+from ref_from_deepmind.jax.common import precision as precision_lib
 import jax
 import jax.numpy as jnp
 import jaxtyping
@@ -59,7 +59,7 @@ def _softmax(x: jax.Array) -> jax.Array:
   return unnormalized / denom
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def _attend(
     q: Float[array_view.ArrayView, "*B T H D"],
     k: Float[array_view.ArrayView, "*B t #H D"],

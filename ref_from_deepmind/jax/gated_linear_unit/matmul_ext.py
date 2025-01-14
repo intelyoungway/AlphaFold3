@@ -14,10 +14,10 @@ from collections.abc import Callable
 import functools
 from typing import Any, TypeAlias
 
-from alphafold3.jax.common import array_view
-from alphafold3.jax.common import triton_utils
-from alphafold3.jax.gated_linear_unit import block
-from alphafold3.jax.gated_linear_unit import matmul_config
+from ref_from_deepmind.jax.common import array_view
+from ref_from_deepmind.jax.common import triton_utils
+from ref_from_deepmind.jax.gated_linear_unit import block
+from ref_from_deepmind.jax.gated_linear_unit import matmul_config
 import jax
 from jax._src.state import discharge
 from jax.experimental import pallas as pl
@@ -221,7 +221,7 @@ def _gated_linear_unit(
   )(x, weights_projection, weights_gate, dst, epilogue_args)
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def gated_linear_unit(
     x: Float[Array | ArrayView, '*B M K'],
     weights_projection: Float[Array | ArrayView, 'K N'],

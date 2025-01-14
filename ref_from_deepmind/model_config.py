@@ -13,8 +13,8 @@
 from collections.abc import Sequence
 from typing import Literal, TypeAlias
 
-from alphafold3.common import base_config
-from alphafold3.jax.attention import attention
+from ref_from_deepmind import base_config
+from ref_from_deepmind.jax.attention import attention
 
 
 _Shape2DType: TypeAlias = tuple[int | None, int | None]

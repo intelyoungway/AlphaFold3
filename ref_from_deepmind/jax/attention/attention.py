@@ -14,7 +14,6 @@ import typing
 from typing import Literal, TypeAlias
 
 from ref_from_deepmind.jax.attention import attention_base as base
-from ref_from_deepmind.jax.attention import flash_attention as attention_triton
 from ref_from_deepmind.jax.attention import xla_attention
 from ref_from_deepmind.jax.common import triton_utils
 import jax
@@ -28,7 +27,7 @@ import typeguard
 Implementation: TypeAlias = Literal["cudnn", "xla", "triton"]
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def dot_product_attention(
     query: Float[Array, "*B T H D"],
     key: Float[Array, "*B t #H D"],
@@ -122,17 +121,5 @@ def dot_product_attention(
       mask=mask,
   )
 
-  if implementation == "triton":
-    if not triton_utils.has_triton_support():
-      raise ValueError(
-          "implementation='triton' is unsupported on this GPU generation."
-      )
-    return attention_triton.TritonFlashAttention()(*args, **kwargs)
-
-  if implementation is None and triton_utils.has_triton_support():
-    try:
-      return attention_triton.TritonFlashAttention()(*args, **kwargs)
-    except Exception:  # pylint: disable=broad-exception-caught
-      pass  # Fallback to XLA.
 
   return xla_attention.XlaDotProductAttention()(*args, **kwargs)

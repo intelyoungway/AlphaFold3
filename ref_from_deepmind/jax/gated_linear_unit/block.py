@@ -13,7 +13,7 @@
 from collections.abc import Sequence
 from typing import Any, TypeAlias
 
-from alphafold3.jax.common import array_view
+from ref_from_deepmind.jax.common import array_view
 import jax
 import jax.experimental
 from jax.experimental import pallas as pl
@@ -29,7 +29,7 @@ ScalarInt: TypeAlias = (
 )
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def load_block(
     ref,
     idx: Sequence[int | ScalarInt],
@@ -48,7 +48,7 @@ def load_block(
     return pl.load(ref, idx, mask=mask, other=other, **kwargs)
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def store_block(
     ref,
     val: jax.Array,

@@ -15,25 +15,25 @@ import concurrent
 import functools
 
 from absl import logging
-from alphafold3 import structure
-from alphafold3.common import base_config
-from alphafold3.model import confidences
-from alphafold3.model import feat_batch
-from alphafold3.model import features
-from alphafold3.model import model_config
-from alphafold3.model.atom_layout import atom_layout
-from alphafold3.model.components import base_model
-from alphafold3.model.components import haiku_modules as hm
-from alphafold3.model.components import mapping
-from alphafold3.model.components import utils
-from alphafold3.model.diffusion import atom_cross_attention
-from alphafold3.model.diffusion import confidence_head
-from alphafold3.model.diffusion import diffusion_head
-from alphafold3.model.diffusion import distogram_head
-from alphafold3.model.diffusion import featurization
-from alphafold3.model.diffusion import modules
-from alphafold3.model.diffusion import template_modules
-from alphafold3.structure import mmcif
+from ref_from_deepmind import structure
+from ref_from_deepmind import base_config
+from ref_from_deepmind.model import confidences
+from ref_from_deepmind.model import feat_batch
+from ref_from_deepmind.model import features
+from ref_from_deepmind.model import model_config
+from ref_from_deepmind.model.atom_layout import atom_layout
+from ref_from_deepmind.components import base_model
+from ref_from_deepmind.components import haiku_modules as hm
+from ref_from_deepmind.components import mapping
+from ref_from_deepmind.components import utils
+from ref_from_deepmind.diffusion import atom_cross_attention
+from ref_from_deepmind.diffusion import confidence_head
+from ref_from_deepmind.diffusion import diffusion_head
+from ref_from_deepmind.diffusion import distogram_head
+from ref_from_deepmind.diffusion import featurization
+from ref_from_deepmind.diffusion import modules
+from ref_from_deepmind.diffusion import template_modules
+from ref_from_deepmind.structure import mmcif
 import haiku as hk
 import jax
 import jax.numpy as jnp

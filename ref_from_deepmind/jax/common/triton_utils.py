@@ -12,7 +12,7 @@
 
 from collections.abc import Callable, Mapping
 
-from alphafold3.jax.common import precision as precision_lib
+from ref_from_deepmind.jax.common import precision as precision_lib
 import jax
 import jax.numpy as jnp
 import triton

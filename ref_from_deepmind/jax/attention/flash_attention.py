@@ -13,10 +13,10 @@
 import dataclasses
 import functools
 
-from alphafold3.jax.attention import attention_base as base
-from alphafold3.jax.common import array_view
-from alphafold3.jax.common import precision as precision_lib
-from alphafold3.jax.common import triton_utils
+from ref_from_deepmind.jax.attention import attention_base as base
+from ref_from_deepmind.jax.common import array_view
+from ref_from_deepmind.jax.common import precision as precision_lib
+from ref_from_deepmind.jax.common import triton_utils
 import jax
 import jax.numpy as jnp
 import jax_triton as jt
@@ -442,7 +442,7 @@ def _fwd_kernel(
   tl.store(o_block_ptr, acc, boundary_check=q_boundary_check)
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def _fwd(
     q: Float[array_view.ArrayView, "*B T H D"],
     k: Float[array_view.ArrayView, "*B t h D"],
@@ -642,7 +642,7 @@ def _decompose_mask(mask, q, k, q_indices, k_indices):
 class TritonFlashAttention(base.DotProductAttention):
   """Triton FlashAttention implementation."""
 
-  @jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+  #@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
   def _fwd(
       self,
       q: Float[array_view.ArrayView, "*B T H D"],

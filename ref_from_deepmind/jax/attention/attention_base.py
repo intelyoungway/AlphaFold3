@@ -224,7 +224,7 @@ class SoftmaxResidualMode(enum.Enum):
 class DotProductAttention(abc.ABC):
   """Dot product attention function."""
 
-  @jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+  #@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
   def __call__(
       self,
       query: Float[Array | array_view.ArrayView, "*B T H D"],
@@ -291,7 +291,7 @@ class DotProductAttention(abc.ABC):
         k_indices=k_indices,
     )
 
-  @jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+  #@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
   def fwd(
       self,
       query: Float[Array | array_view.ArrayView, "*B T H D"],

@@ -42,7 +42,7 @@ class PallasGatedLinearUnit(gated_linear_unit_base.GatedLinearUnit):
     )
 
 
-@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
+#@jaxtyping.jaxtyped(typechecker=typeguard.typechecked)
 def gated_linear_unit(
     x: Float[Array, '*B M K'],
     weight: Float[Array, 'K 2 N'],

@@ -8,7 +8,6 @@ import jax
 import jax.numpy as jnp
 
 
-
 class TriangleMultiplication(hk.Module):
   """Triangle Multiplication."""
 

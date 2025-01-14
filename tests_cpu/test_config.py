@@ -1,10 +1,10 @@
 import os
 import sys
-sys.path.append('/root/sources/AlphaFold3')
+sys.path.append('/home/intel/AlphaFold3')
 from alphafold3_cpu.basics import Configuration
 
 
-f_json = '/root/sources/AlphaFold3/ref_from_deepmind/model_config.json'
+f_json = '/home/intel/AlphaFold3/ref_from_deepmind/model_config.json'
 root_config = Configuration(f_json)
 print(root_config)
 gc = root_config.global_config

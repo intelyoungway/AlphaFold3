@@ -1,6 +1,7 @@
 import jax
 import haiku as hk
 import functools
+import numpy as np
 
 
 def get_pure_fn(model, c, gc, name):
@@ -17,12 +18,15 @@ def get_pure_fn(model, c, gc, name):
   return init,apply
 
 
-def get_fn_with_sample(model, c, gc):
-  @hk.transform
-  def fwd_fn(feed_dict):
-    return model(c,gc)(**feed_dict)
-  
-  return functools.partial(
-    jax.jit(fwd_fn.apply),
-    None
-  )
+def randomized_params(params):
+  new_params = {}
+  if not isinstance(params, dict):
+    shapes = v.shape
+    return np.random.randn(*shapes)
+  for k, v in params.items():
+    if isinstance(v, dict):
+      new_params[k] = randomized_params(v)
+    else:
+      shapes = v.shape
+      new_params[k] = np.random.randn(*shapes)
+  return new_params

@@ -13,13 +13,13 @@
 from collections.abc import Sequence
 from typing import Literal
 
-from ref_from_deepmind import base_config
-from ref_from_deepmind.jax.attention import attention
-from ref_from_deepmind.jax.gated_linear_unit import gated_linear_unit
-from ref_from_deepmind import model_config
-from ref_from_deepmind.components import haiku_modules as hm
-from ref_from_deepmind.components import mapping
-from ref_from_deepmind.diffusion import diffusion_transformer
+from alphafold3.common import base_config
+from alphafold3.jax.attention import attention
+from alphafold3.jax.gated_linear_unit import gated_linear_unit
+from alphafold3.model import model_config
+from alphafold3.model.components import haiku_modules as hm
+from alphafold3.model.components import mapping
+from alphafold3.model.diffusion import diffusion_transformer
 import haiku as hk
 import jax
 import jax.numpy as jnp
@@ -264,16 +264,16 @@ class TriangleMultiplication(hk.Module):
       Outputs, should have same shape/type as output_act
     """
     mask = mask[None, ...]
-    num_channels = act.shape[-1] # pt.triangularmulti.c_z, 32
+    num_channels = act.shape[-1]
     equation = {
-        'ikc,jkc->ijc': 'cik,cjk->cij', # outgoing
-        'kjc,kic->ijc': 'ckj,cki->cij', # incoming
+        'ikc,jkc->ijc': 'cik,cjk->cij',
+        'kjc,kic->ijc': 'ckj,cki->cij',
     }[self.config.equation]
 
     act = hm.LayerNorm(name='left_norm_input')(act)
     input_act = act
 
-    if self.config.use_glu_kernel: # true
+    if self.config.use_glu_kernel:
       weights_projection, _ = hm.haiku_linear_get_params(
           act, num_output=num_channels * 2, name='projection'
       )

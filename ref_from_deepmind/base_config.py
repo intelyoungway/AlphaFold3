@@ -61,7 +61,7 @@ def _clone_field(
   )
 
 
-@typing.dataclass_transform()
+
 class ConfigMeta(type):
   """Metaclass that synthesizes a __post_init__ that coerces dicts to Config subclass instances."""
 

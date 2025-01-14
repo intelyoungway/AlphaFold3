@@ -36,7 +36,9 @@ class Configuration:
       if isinstance(v, torch.Tensor):
         r += '\n  \033[34m' + 'Tensor' + '\033[0m' + f' [{v.shape}] '
       elif isinstance(v, list):
-        r += '\033[34m' + 'List' + '\033[0m' + f' [{len(v)}]'
+        r += '\033[34m' + 'List' + '\033[0m' + f'[{len(v)}]'
+        if len(v)<10:
+          r += f' : {v}'
       elif isinstance(v, dict):
         itms = ''
         for k, val in v.items():

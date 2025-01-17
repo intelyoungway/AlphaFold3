@@ -4,7 +4,7 @@ import functools
 import numpy as np
 
 
-def get_pure_fn(model, c, gc, name):
+def get_pure_fn(model, c, gc, name, is_jit=True):
   """
   get pure function
   return init,apply
@@ -12,9 +12,12 @@ def get_pure_fn(model, c, gc, name):
   def _forward(*args):
     mod = model(config=c,global_config=gc, name=name)
     return mod(*args)
-
-  init = jax.jit(hk.transform(_forward).init)
-  apply = jax.jit(hk.transform(_forward).apply)
+  if is_jit:
+    init = jax.jit(hk.transform(_forward).init)
+    apply = jax.jit(hk.transform(_forward).apply)
+  else:
+    init = hk.transform(_forward).init
+    apply = hk.transform(_forward).apply
   return init,apply
 
 

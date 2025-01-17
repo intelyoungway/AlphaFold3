@@ -23,7 +23,10 @@ act = np.random.randn(seq_len, seq_len, seq_z)
 mask = np.random.randn(seq_len, seq_len)
 print(np.asarray(act)[0,0])
 
-init, apply = get_pure_fn(TriangleMultiplication, c, gc, name='TriangleMultiplication')
+init, apply = get_pure_fn(
+  TriangleMultiplication, c, gc, 
+  name='TriangleMultiplication',
+  is_jit=False)
 # apply = get_fn_with_sample(TriangleMultiplication, c, gc)
 
 rng = jax.random.PRNGKey(general_seed)

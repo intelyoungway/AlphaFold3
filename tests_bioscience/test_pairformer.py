@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/intel/AlphaFold3')
 import torch
 import unittest
 from src.models.pairformer import PairformerStack
@@ -6,7 +8,7 @@ from src.models.pairformer import PairformerStack
 class TestPairformer(unittest.TestCase):
     def setUp(self):
         self.batch_size = 1
-        self.n_tokens = 640 # 64
+        self.n_tokens = 64
         self.c_s = 64
         self.c_z = 32
         self.no_blocks = 1

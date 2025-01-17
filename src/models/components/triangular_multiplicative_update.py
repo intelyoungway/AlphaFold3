@@ -117,7 +117,7 @@ class TriangleMultiplicativeUpdate(BaseTriangleMultiplicativeUpdate):
         super(TriangleMultiplicativeUpdate, self).__init__(c_z=c_z,
                                                            c_hidden=c_hidden,
                                                            _outgoing=_outgoing)
-
+        # print(f'init: c_z = {self.c_z}, c_hidden = {self.c_hidden}')
         self.linear_a_p = Linear(self.c_z, self.c_hidden)
         self.linear_a_g = Linear(self.c_z, self.c_hidden, init="gating")
         self.linear_b_p = Linear(self.c_z, self.c_hidden)
@@ -366,6 +366,11 @@ class TriangleMultiplicativeUpdate(BaseTriangleMultiplicativeUpdate):
         Returns:
             [*, N_res, N_res, C_z] output tensor
         """
+        # print(f'z.shape = {z.shape}')
+        # print(f'mask.shape = {mask.shape}')
+        # print(f'inplace_safe = {inplace_safe}')
+        # print(f'_add_with_inplace = {_add_with_inplace}')
+        # print(f'_inplace_chunk_size = {_inplace_chunk_size}')
         if inplace_safe:
             x = self._inference_forward(
                 z,
@@ -395,7 +400,7 @@ class TriangleMultiplicativeUpdate(BaseTriangleMultiplicativeUpdate):
         x = self.linear_z(x)
         g = self.sigmoid(self.linear_g(z))
         x = x * g
-
+        # print(f'output.shape={x.shape}')
         return x
 
 

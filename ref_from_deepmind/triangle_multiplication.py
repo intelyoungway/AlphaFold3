@@ -34,6 +34,7 @@ class TriangleMultiplication(hk.Module):
     """
     mask = mask[None, ...]
     num_channels = act.shape[-1] # pt.triangularmulti.c_z, 32
+    
     equation = {
         'ikc,jkc->ijc': 'cik,cjk->cij', # outgoing
         'kjc,kic->ijc': 'ckj,cki->cij', # incoming
